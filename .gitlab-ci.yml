@@ -1,0 +1,29 @@
+stages:
+  - deploy
+
+variables:
+  APP_ENV: production
+  COMPOSER_CACHE_DIR: "/cache/composer"
+  NODE_ENV: production
+
+cache:
+  paths:
+    - vendor/
+    - node_modules/
+    - $COMPOSER_CACHE_DIR
+
+deploy:
+  stage: deploy
+  image: lorisleiva/laravel-docker:8.2
+  before_script:
+    - apk update && apk add rsync openssh-client
+  script:
+    - composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-dev
+    - cp .env.example .env
+    - php artisan key:generate
+    - chmod 400 $private_key
+    - rsync -avz --delete --exclude='.env' --exclude='storage/app/public' --exclude='public/image' -e "ssh -o StrictHostKeyChecking=no -i $private_key" ./ root@45.117.153.14:/var/www/demo-fieldma/
+    - ssh -o StrictHostKeyChecking=no -i $private_key root@45.117.153.14 "cd /var/www/demo-fieldma && php artisan view:cache && php artisan config:cache && touch storage/logs/laravel.log &&  chmod 777 storage/logs/laravel.log && php artisan jwt:secret && php artisan storage:link"
+  only:
+    - main
+  when: manual

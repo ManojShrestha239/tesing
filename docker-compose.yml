@@ -1,0 +1,129 @@
+# version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fieldma_2_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./app:/var/www/app:delegated
+      - ./config:/var/www/config
+      - ./database:/var/www/database
+      - ./public:/var/www/public:delegated
+      - ./resources:/var/www/resources:delegated
+      - ./routes:/var/www/routes
+      - ./storage:/var/www/storage:delegated
+      - .env:/var/www/.env
+      - ./vendor:/var/www/vendor:delegated
+    networks:
+      - fieldma_2_net
+      - shared
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: fieldma_2_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/var/www/public
+      - ./storage:/var/www/storage
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      fieldma_2_net: {}
+      shared:
+        aliases:
+          - fieldma-api
+
+  mysql:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: fieldma_2_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+      - ./mysql/conf.d/custom.cnf:/etc/mysql/conf.d/custom.cnf:ro
+    networks:
+      - fieldma_2_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    platform: linux/amd64
+    container_name: fieldma_2_phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root #${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      UPLOAD_LIMIT: 512M
+      MEMORY_LIMIT: 512M
+      MAX_EXECUTION_TIME: 600
+    ports:
+      - "8082:80"
+    volumes:
+      - ./phpmyadmin/conf.d/upload.ini:/usr/local/etc/php/conf.d/upload.ini:ro
+    depends_on:
+      - mysql
+    networks:
+      - fieldma_2_net
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN}
+    networks:
+      - fieldma_2_net
+    environment:
+      - CLOUDFLARED_TOKEN=${CLOUDFLARED_TOKEN}
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fieldma_2_scheduler
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./app:/var/www/app:delegated
+      - ./config:/var/www/config
+      - ./database:/var/www/database
+      - ./routes:/var/www/routes
+      - ./storage:/var/www/storage:delegated
+      - .env:/var/www/.env
+      - ./vendor:/var/www/vendor:delegated
+    networks:
+      - fieldma_2_net
+    depends_on:
+      - app
+      - mysql
+    command: sh -c "while true; do php artisan schedule:run; sleep 60; done"
+
+volumes:
+  mysql_data:
+
+networks:
+  fieldma_2_net:
+    driver: bridge
+  shared:
+    external: true
+    name: ms_connect_to_bihani_subscription_system

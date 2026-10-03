@@ -1,0 +1,99 @@
+.maps {
+    margin: auto;
+    padding:0px 24px 24px 24px;
+}
+
+.map-container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#map-container {
+    height: 550px;
+    width: 100%;
+}
+
+.locate-dealer {
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+    background-image: linear-gradient(to right, #7A0010, #CF0017);
+}
+
+.maps-left {
+    padding-right: 0px !important;
+    height: 550px;
+}
+
+.maps-right {
+    padding-left: 0px !important;
+}
+
+.locate-dealer {
+    padding: 24px;
+}
+
+.locate-dealer p:first-child {
+    font-size: 32px;
+    color: white;
+}
+
+.maps-contact-cards {
+    height: auto;
+    width: 100%;
+    border-radius: 4px;
+    background: white;
+    padding: 8px 12px 8px 12px;
+    margin-bottom: 12px;
+}
+
+.maps-contact-cards p:first-child {
+    color: black;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.maps-contact-cards p:nth-child(2) {
+    color: black;
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.maps-contact-cards p:nth-child(3) {
+    color: #2E3192;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0px;
+    text-align: end;
+}
+
+@media(max-width:768px) {
+    .maps {
+        width: 96%;
+        height: auto;
+    }
+    .maps-left {
+        padding-right: 15px !important;
+    }
+    .maps-right {
+        padding-left: 15px !important;
+    }
+    .maps-contact-cards p:first-child {
+        font-size: 16px;
+    }
+    .maps-contact-cards p:nth-child(2) {
+        font-size: 13px;
+    }
+    .maps-contact-cards p:nth-child(3) {
+        font-size: 13px;
+    }
+}
+
+
+/* latest  */
+
+.province {
+    color: white;
+}

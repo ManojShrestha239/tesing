@@ -1,0 +1,202 @@
+    .home-section {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .home-section .home-content {
+        position: relative;
+        padding-top: 20px;
+    }
+
+    .home-content .overview-boxes {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 20px;
+        margin-bottom: 26px;
+    }
+
+    .home-content .total-order {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .home-content .sales-boxes {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .overview-boxes .box {
+        display: flex;
+        justify-content: left;
+        width: calc(100% / 5 - 25px);
+        background: #ecececad;
+        padding: 3px;
+        position: relative;
+        border-radius: 6px;
+        box-shadow: 0 5px 10px rgba(53, 51, 51, 0.034);
+    }
+
+    .overview-boxes .box-topic {
+        font-size: 12px;
+        font-weight: 400;
+        padding-left: 10px;
+    }
+
+    .home-content .box .number {
+        display: inline-block;
+        font-size: 18px;
+        margin-top: 6px;
+        font-weight: 800;
+        padding-left: 10px;
+    }
+
+
+    /* left box */
+
+    .home-content .sales-boxes .recent-sales {
+        width: 80%;
+        background: #fff;
+        padding: 20px 30px;
+        margin: 0 20px;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .home-content .sales-boxes .sales-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    /* Right box */
+
+    .home-content .sales-boxes .top-sales {
+        width: 17%;
+        background: #ecececad;
+        padding: 20px 30px;
+        margin: 0 20px 0 0;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sales-boxes .box .title i {
+        color: rgb(9, 117, 57);
+        padding-left: 7px;
+        font-weight: 350;
+    }
+
+    .sales-boxes .box .title {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+
+    .sales-boxes .top-sales li .product {
+        font-size: 14px;
+        font-weight: 400;
+        color: rgb(0, 0, 0);
+        margin: -10px 0;
+        margin-bottom: 30px;
+    }
+
+    .sales-boxes .top-sales li span {
+        margin-top: -55px;
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+
+    }
+
+    .sales-boxes .top-sales li {
+        display: flex;
+        list-style-type: none;
+        align-items: left;
+        justify-content: space-between;
+        margin: 25px 0;
+
+    }
+
+    .sales-boxes .top-sales li a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .price {
+        display: flex;
+        width: 150%;
+        font-size: 17px;
+        font-weight: 1000;
+        color: #333;
+        float: left;
+        border-bottom: 2px solid rgb(255, 255, 255);
+    }
+
+    /* Responsive Media Query */
+
+    @media (max-width: 1240px) {
+        .home-section {
+            width: calc(100% - 60px);
+            left: 60px;
+        }
+    }
+
+    @media (max-width: 1150px) {
+        .home-content .sales-boxes {
+            flex-direction: column;
+        }
+
+        .home-content .sales-boxes .box {
+            width: 100%;
+            overflow-x: scroll;
+            margin-bottom: 30px;
+        }
+
+        .home-content .sales-boxes .top-sales {
+            margin: 0;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .home-content .sales-boxes .sales-details {
+            width: 560px;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .overview-boxes .box {
+            width: calc(100% / 4 - 15px);
+            margin-bottom: 15px;
+        }
+    }
+
+    @media (max-width: 800px) {
+        .overview-boxes .box {
+            width: calc(100% / 3 - 15px);
+            margin-bottom: 15px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .overview-boxes .box {
+            width: calc(100% / 2 - 15px);
+            margin-bottom: 15px;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .overview-boxes .box {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    .span-info {
+        font-size: 17px;
+    }

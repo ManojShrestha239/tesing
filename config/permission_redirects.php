@@ -1,0 +1,26 @@
+<?php
+// config/permission_redirects.php
+return [
+    'home' => '/dashboard',
+    'notice' => '/notice',
+    'order' => '/order',
+    'collection' => '/collection-report',
+    'schedule' => '/schedule',
+    'chat' => '/chat',
+    'complaint' => '/complaint',
+    'reports' => '/visithistory',
+    'setup' => '/user',
+    'user' => '/user',
+    'dealer' => '/dealer',
+    'area' => '/area',
+    'product' => '/final-product',
+    'privacy-policy' => '/privacy-policy',
+    'miscellaneous' => '/bank',
+    'bank' => '/bank',
+    'upload-due' => '/uploadfile/create',
+    'distance' => '/distance',
+    'denomination' => '/denomination',
+    'purpose' => '/purpose',
+    'role' => '/role',
+    'auto-checkout' => '/checkout-time',
+];

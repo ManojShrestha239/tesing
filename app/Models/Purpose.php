@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Purpose extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'purpose', 'collection_type', 'status'
+    ];
+    public function session()
+    {
+        return $this->hasMany(Session::class);
+    }
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+}

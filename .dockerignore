@@ -1,0 +1,56 @@
+# Don't copy vendor to build context - we'll install in Docker
+vendor/
+node_modules/
+
+# Don't copy local environment files
+.env
+.env.local
+.env.*.local
+
+# Don't copy version control
+.git/
+.gitignore
+
+# Don't copy OS files
+.DS_Store
+Thumbs.db
+
+# Don't copy IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Don't copy logs
+storage/logs/*
+*.log
+
+# Don't copy test files
+tests/
+phpunit.xml
+.phpunit.result.cache
+
+# Don't copy documentation
+*.md
+docs/
+
+# Don't copy CI/CD files
+.github/
+.gitlab-ci.yml
+
+# Don't copy cache
+bootstrap/cache/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Don't copy compiled assets
+public/hot
+public/storage
+public/build
+public/mix-manifest.json
+
+# Don't copy Docker files
+docker-compose*.yml
+Dockerfile*
+.dockerignore

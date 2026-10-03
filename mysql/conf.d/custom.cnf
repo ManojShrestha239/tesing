@@ -1,0 +1,4 @@
+[mysqld]
+max_allowed_packet = 2048M
+net_read_timeout = 600
+net_write_timeout = 600
